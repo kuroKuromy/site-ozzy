@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>OZZY LINK</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+            body {
+    background-image:
+        url('segunda back.gif'),
+        url('Comm_Ozzy.png');
+
+    background-size:
+        cover,
+        cover;
+
+    background-repeat:
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        center,
+        center;
+
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+        
+        /* Camada das imagens que aparece sobre o fundo fosco */
+.hover-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.5s ease;
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Imagem do Instagram */
+.hover-background.instagram {
+    background-image: url('x.jpg');
+}
+
+/* Imagem do YouTube */
+.hover-background.youtube {
+    background-image: url('twich.jpg');
+}
+
+/* Imagem do Spotify */
+.hover-background.spotify {
+    background-image: url('vgen.jpg');
+}
+
+/* Imagem do Discord */
+.hover-background.discord {
+    background-image: url('discord.jpg');
+}
+
+/* Exibe a imagem ao passar o mouse */
+.hover-background.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+        /* Camada de fundo fosco (blur) */
+        .backdrop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+
+        /* Container do Menu Central */
+        .menu-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Oculta o checkbox */
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Círculo Principal (Centro) */
+        .btn-main {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: red; /* Sua imagem do centro */
+            background-size: cover;       /* Cobre todo o círculo */
+            background-position: center;  /* Centraliza perfeitamente no meio */
+            background-repeat: no-repeat; 
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s;
+            user-select: none;
+            z-index: 3;
+            text-align: center;
+        }
+
+        /* Círculos Secundários (Orbitais) com Imagens Centralizadas */
+        .sub-button {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-size: cover;       /* Cobre todo o círculo */
+            background-position: center;  /* Centraliza perfeitamente no meio */
+            background-repeat: no-repeat;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+        }
+
+
+        /* CORES INDIVIDUAIS DOS CÍRCULOS (Altere aqui as cores que quiser) */
+        .btn-top-left { background-image: url('x.jpg'); }       /* Insta (Preto) */
+        .btn-top-right { background-image: url('discord icon.png') }    /* YouTube (Vermelho) */
+        .btn-bottom-left { background-image: url('twich icon.png'); }  /* Spotify (Roxo/Rosa) */
+        .btn-bottom-right { background-image: url('vgen icon.png')} /* Discord (Azul) */
+
+        /* AO CLICAR NO CÍRCULO PRINCIPAL: Abre direto nas posições ajustadas */
+
+        .menu-toggle:checked ~ .backdrop-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-toggle:checked ~ .btn-top-left {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-120px, -110px) scale(1);
+        }
+
+        .menu-toggle:checked ~ .btn-top-right {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(120px, -110px) scale(1);
+        }
+
+        .menu-toggle:checked ~ .btn-bottom-left {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-120px, 110px) scale(1);
+        }
+
+        .menu-toggle:checked ~ .btn-bottom-right {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(120px, 110px) scale(1);
+        }
+
+        /* Muda levemente a cor do botão principal ao abrir, sem girar */
+        .menu-toggle:checked + .btn-main {
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <audio id="musicaFundo" loop>
+    <source src="overdose.mp3" type="audio/mpeg">
+</audio>
+    <div class="hover-background" id="hoverBackground"></div>
+    <div class="menu-container">
+        <!-- Controle por clique -->
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        
+        <!-- Círculo Central (Principal) -->
+        <label for="menu-toggle" class="btn-main">MENU</label>
+        
+        <!-- Camada para desfocar/escurecer o fundo -->
+        <div class="backdrop-overlay"></div>
+
+        <!-- Os 4 Círculos com Links e Cores Diferentes -->
+        <a href="https://x.com/OzzyCHML" target="_blank" class="sub-button btn-top-left" id="xbotao">x</a>
+        <a href="https://www.twitch.tv/ozzychml" target="_blank" class="sub-button btn-top-right" id="vgenbotao">twich</a>
+        <a href="https://t.co/CFPoifcOKa" target="_blank" class="sub-button btn-bottom-left" id="twitchbotao">vgen</a>
+        <a href="https://t.co/fvGGpw960E" target="_blank" class="sub-button btn-bottom-right" id="discord">Discord</a>
+    </div>
+    <script>
+    const hoverBackground = document.getElementById("hoverBackground");
+const menuToggle = document.getElementById("menu-toggle");
+
+const botoes = [
+    { id: "xbotao", imagem: "instagram" },
+    { id: "vgenbotao", imagem: "youtube" },
+    { id: "twitchbotao", imagem: "spotify" },
+    { id: "discord", imagem: "discord" }
+];
+
+botoes.forEach(botao => {
+
+    const elemento = document.getElementById(botao.id);
+
+    elemento.addEventListener("mouseenter", () => {
+
+        if (menuToggle.checked) {
+            hoverBackground.className =
+                "hover-background active " + botao.imagem;
+        }
+
+    });
+
+    elemento.addEventListener("mouseleave", () => {
+        hoverBackground.className = "hover-background";
+    });
+
+});
+
+menuToggle.addEventListener("change", () => {
+    hoverBackground.className = "hover-background";
+});
+</script>
+<script>
+ const musica = document.getElementById("musicaFundo");
+
+musica.volume = 0.2;
+musica.loop = true;
+
+function iniciarMusica() {
+
+    musica.play()
+        .then(() => {
+            console.log("Música iniciada!");
+        })
+        .catch(erro => {
+            console.log("Erro ao tocar música:", erro);
+        });
+
+}
+
+// Inicia no primeiro clique do usuário
+document.addEventListener("click", iniciarMusica, { once: true });
+</script>
+</body>
+</html>
