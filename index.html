@@ -209,11 +209,49 @@
         .menu-toggle:checked + .btn-main {
             background-color: #222;
         }
+        /* RODAPÉ DE CRÉDITOS */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    padding: 12px 15px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    z-index: 4;
+}
+
+.footer a {
+    color: #ffb6d9;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: white;
+    text-shadow: 0 0 8px #ff80bf;
+}
+
+.footer p {
+    margin: 3px 0;
+}
     </style>
 </head>
 <body>
     <audio id="musicaFundo" loop>
-    <source src="overdose.mp3" type="audio/mpeg">
+    <source src=".mp3" type="audio/mpeg">
 </audio>
     <div class="hover-background" id="hoverBackground"></div>
     <div class="menu-container">
@@ -232,6 +270,17 @@
         <a href="https://t.co/CFPoifcOKa" target="_blank" class="sub-button btn-bottom-left" id="twitchbotao">vgen</a>
         <a href="https://t.co/fvGGpw960E" target="_blank" class="sub-button btn-bottom-right" id="discord">Discord</a>
     </div>
+    <footer class="footer">
+    <p>ARTISTAS DE FANART</p>
+
+    <p>
+        <a href="https://x.com/OzzyCHML" target="_blank">@OzzyCHML</a>
+        •
+        <a href="#" target="_blank">danimundo</a>
+        •
+        <a href="#" target="_blank">@YAMIsshaelum</a>
+    </p>
+</footer>
     <script>
     const hoverBackground = document.getElementById("hoverBackground");
 const menuToggle = document.getElementById("menu-toggle");
